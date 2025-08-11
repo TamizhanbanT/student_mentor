@@ -1,0 +1,76 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+ 
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+
+model Role {
+  id           Int           @id @default(autoincrement())
+  name         String        @unique
+  profileRoles ProfileRole[]
+}
+
+model Profile {
+  id           Int              @id @default(autoincrement())
+  email        String           @unique
+  password     String
+  studentName  String?
+  mentorName   String?
+  parentName   String?
+  parentPhone  BigInt?
+  address      String?
+  pincode      Int?
+  mentorphone  BigInt?
+  class        Int?
+  fees         Int?
+  marks        Int?
+  todaysUpdate String?
+  createdAt    DateTime         @default(now())
+  updatedAt    DateTime         @updatedAt
+  createdBy    String?
+  updatedBy    String
+  role         String?          @default("student") 
+
+  profileRoles ProfileRole[]
+  subjects     Subject[]        @relation("ProfileSubjects")
+  students     MentorStudent[]  @relation("MentorRelation")  // as mentor
+  mentors      MentorStudent[]  @relation("StudentRelation") // as student
+}
+
+model ProfileRole {
+  profileId Int
+  roleId    Int
+
+  profile   Profile @relation(fields: [profileId], references: [id])
+  role      Role    @relation(fields: [roleId], references: [id])
+
+  @@id([profileId, roleId])
+}
+
+model Subject {
+  id          Int       @id @default(autoincrement())
+  subjectName String    @unique
+  profiles    Profile[] @relation("ProfileSubjects")
+}
+
+model MentorStudent {
+  mentorId  Int
+  studentId Int
+
+  mentor    Profile @relation("MentorRelation", fields: [mentorId], references: [id])
+  student   Profile @relation("StudentRelation", fields: [studentId], references: [id])
+
+  @@id([mentorId, studentId])
+}
+
