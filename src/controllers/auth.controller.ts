@@ -1,4 +1,3 @@
-// src/controllers/auth.controller.ts
 import { Request, Response } from "express";
 import * as authService from "../services/auth.service";
 import { createStudentSchema, createMentorSchema, loginSchema } from "../schemas/profile.schema";

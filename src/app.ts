@@ -3,6 +3,7 @@ import dotenv from "dotenv";
 import roleRoutes from '../src/routes/role.routes'
 import subjectRoutes from '../src/routes/subject.routes'
 import registerRoutes from '../src/routes/auth.routes'
+import profileRoutes from '../src/routes/profile.route'
 
 dotenv.config();
 
@@ -18,6 +19,7 @@ app.use(express.json());
 app.use("/api/roles", roleRoutes);
 app.use("/api/subjects",subjectRoutes)
 app.use("/auth/",registerRoutes)
+app.use("/api/profiles",profileRoutes)
 
 app.listen(port, () => {
   console.log(`server running on port ${port}`);
