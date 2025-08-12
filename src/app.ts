@@ -1,11 +1,9 @@
 import express from "express";
-import dotenv from "dotenv";
 import roleRoutes from '../src/routes/role.routes'
 import subjectRoutes from '../src/routes/subject.routes'
 import registerRoutes from '../src/routes/auth.routes'
 import profileRoutes from '../src/routes/profile.route'
-
-dotenv.config();
+import mentorstudentRoutes from '../src/routes/mentorstudent.route'
 
 const port = 4000;
 const app = express();
@@ -20,6 +18,7 @@ app.use("/api/roles", roleRoutes);
 app.use("/api/subjects",subjectRoutes)
 app.use("/auth/",registerRoutes)
 app.use("/api/profiles",profileRoutes)
+app.use("/api/assign",mentorstudentRoutes)
 
 app.listen(port, () => {
   console.log(`server running on port ${port}`);
