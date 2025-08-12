@@ -4,6 +4,7 @@ import subjectRoutes from '../src/routes/subject.routes'
 import registerRoutes from '../src/routes/auth.routes'
 import profileRoutes from '../src/routes/profile.route'
 import mentorstudentRoutes from '../src/routes/mentorstudent.route'
+import profileroleRoutes from '../src/routes/profilerole.routes'
 
 const port = 4000;
 const app = express();
@@ -19,6 +20,7 @@ app.use("/api/subjects",subjectRoutes)
 app.use("/auth/",registerRoutes)
 app.use("/api/profiles",profileRoutes)
 app.use("/api/assign",mentorstudentRoutes)
+app.use("/api/profilerole",profileroleRoutes)
 
 app.listen(port, () => {
   console.log(`server running on port ${port}`);

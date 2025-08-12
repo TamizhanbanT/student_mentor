@@ -22,4 +22,9 @@ router.get("/students", isAuthenticated, profileController.getAllStudents);
 router.get("/students/:id", isAuthenticated, profileController.getStudentById);
 router.get("/students-without-mentor", isAuthenticated, profileController.getStudentsWithoutMentor);
 
+router.get("/mentors-with-students-selected", isAuthenticated, profileController.getMentorsWithStudentsSelected);
+router.get("/students-with-mentors-selected", isAuthenticated, profileController.getStudentsWithMentorsSelected);
+router.get("/mentors-without-students-selected", isAuthenticated, profileController.getMentorsWithoutStudentsSelected);
+
+
 export default router;

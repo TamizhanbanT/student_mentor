@@ -127,3 +127,30 @@ export const getStudentsWithoutMentor = async (req: Request, res: Response) => {
     res.status(500).json({ message: error.message });
   }
 };
+
+export const getMentorsWithStudentsSelected = async (req: Request, res: Response) => {
+  try {
+    const data = await profileService.getMentorsWithStudentsSelectedFields();
+    res.status(200).json(data);
+  } catch (error: any) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+export const getStudentsWithMentorsSelected = async (req: Request, res: Response) => {
+  try {
+    const data = await profileService.getStudentsWithMentorsSelectedFields();
+    res.status(200).json(data);
+  } catch (error: any) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+export const getMentorsWithoutStudentsSelected = async (req: Request, res: Response) => {
+  try {
+    const data = await profileService.getMentorsWithoutStudentsSelectedFields();
+    res.status(200).json(data);
+  } catch (error: any) {
+    res.status(500).json({ message: error.message });
+  }
+};

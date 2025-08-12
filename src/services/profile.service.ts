@@ -112,3 +112,64 @@ export const getStudentsWithoutMentor = async () => {
     throw new Error(`Error fetching students without mentor: ${error.message}`);
   }
 };
+
+// Get mentors with students but only selected fields
+export const getMentorsWithStudentsSelectedFields = async () => {
+  return await prisma.profile.findMany({
+    where: { role: "mentor" },
+    select: {
+      id: true,
+      mentorName: true,
+      class: true,
+      students: {
+        select: {
+          student: {
+            select: {
+              id: true,
+              studentName: true,
+              class: true,
+            }
+          }
+        }
+      }
+    }
+  });
+};
+
+// Get students with mentors with selected fields
+export const getStudentsWithMentorsSelectedFields = async () => {
+  return await prisma.profile.findMany({
+    where: { role: "student" },
+    select: {
+      id: true,
+      studentName: true,
+      class: true,
+      mentors: {
+        select: {
+          mentor: {
+            select: {
+              id: true,
+              mentorName: true,
+              class: true,
+            }
+          }
+        }
+      }
+    }
+  });
+};
+
+// Get mentors without students, selected fields only
+export const getMentorsWithoutStudentsSelectedFields = async () => {
+  return await prisma.profile.findMany({
+    where: {
+      role: "mentor",
+      students: { none: {} }
+    },
+    select: {
+      id: true,
+      mentorName: true,
+      class: true,
+    }
+  });
+};
